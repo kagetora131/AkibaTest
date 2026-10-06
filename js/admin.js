@@ -67,9 +67,38 @@
     }).join('');
   }
 
+  // デモ版限定のログイン。静的サイトなので本当の保護ではない。ID・パスワードそのものはコードに書かない。
+  // ハッシュは「ID:パスワード」（UTF-8）の SHA-256（小文字16進）
+  var ADMIN_HASH = 'e2339bb6a249ed0533b57b598b20696896cf344d929cfd682dc23e20301511bf';
+
+  var focusH1 = false; // ログイン直後に管理画面の見出しへフォーカスを移す
+
+  function loginScreen() {
+    return '<section class="card login-card">' +
+      '<h1>運営ログイン（デモ）</h1>' +
+      '<p class="notice card">この画面は運営担当者用です（デモ）。</p>' +
+      '<form id="admin-login" novalidate>' +
+        '<div class="field"><label for="login-id">ID</label>' +
+          '<input class="input" type="text" id="login-id" name="user" autocomplete="username"></div>' +
+        '<div class="field"><label for="login-pw">パスワード</label>' +
+          '<input class="input" type="password" id="login-pw" name="pw" autocomplete="current-password"></div>' +
+        '<p class="field-error" id="login-error" role="alert"></p>' +
+        '<button type="submit" class="btn btn-primary">ログイン</button>' +
+      '</form></section>';
+  }
+
+  function adminBar() {
+    return '<div class="admin-bar">' +
+      '<span class="admin-pill">運営用（デモ）</span>' +
+      '<a href="#/">お客様画面を見る</a>' +
+      '<button type="button" class="btn btn-ghost" data-action="admin-logout">ログアウト</button>' +
+      '</div>';
+  }
+
   Neo.screens.admin = function () {
+    if (!Neo.state.adminAuthed) return loginScreen();
     var none = overrideCount() === 0;
-    return '<h1>管理画面（デモ）</h1>' +
+    return adminBar() + '<h1>管理画面（デモ）</h1>' +
       '<p class="notice card">この画面での切り替えは保存されません。ページを再読み込みすると元に戻ります。本番では運営担当者だけが見られる画面です。</p>' +
       statCards() + reflectCard() +
       '<p class="admin-actions"><button type="button" class="btn btn-ghost" data-action="admin-reset"' +
@@ -80,6 +109,11 @@
   };
 
   Neo.afterRender.admin = function () {
+    if (focusH1) {
+      focusH1 = false;
+      var h = document.querySelector('#app h1');
+      if (h) { h.setAttribute('tabindex', '-1'); try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+    }
     if (!pendingFocus) return;
     var sels = document.querySelectorAll('.status-select');
     for (var i = 0; i < sels.length; i++) {
@@ -108,9 +142,55 @@
   document.addEventListener('click', function (e) {
     if (!onAdmin() || !Neo.data) return;
     var t = e.target.closest ? e.target : e.target.parentElement;
-    if (t && t.closest('[data-action="admin-reset"]')) {
+    if (!t) return;
+    if (t.closest('[data-action="admin-reset"]')) {
       Neo.state.permissionOverrides = {};
       Neo.rerender();
+    } else if (t.closest('[data-action="admin-logout"]')) {
+      Neo.state.adminAuthed = false;
+      Neo.rerender();
     }
+  });
+
+  // ログイン欄の下にエラーを出す（role="alert" の段落の中身を差し替える）
+  function loginError(msg) {
+    var el = document.getElementById('login-error');
+    if (el) el.textContent = msg;
+  }
+
+  // 文字列 → SHA-256（小文字16進）
+  function sha256Hex(text) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) {
+        return ('0' + b.toString(16)).slice(-2);
+      }).join('');
+    });
+  }
+
+  // ログイン送信。通信・保存・ログ出力はしない（入力値はこの関数の中だけで使う）
+  document.addEventListener('submit', function (e) {
+    var form = e.target;
+    if (!form || !form.getAttribute || form.getAttribute('id') !== 'admin-login') return;
+    e.preventDefault();
+    var idEl = form.elements.user, pwEl = form.elements.pw;
+    if (!idEl.value || !pwEl.value) { loginError('ID とパスワードを入力してください。'); return; }
+    if (!window.crypto || !crypto.subtle) {
+      loginError('この環境ではログインできません。https または localhost で開いてください。');
+      return;
+    }
+    sha256Hex(idEl.value + ':' + pwEl.value).then(function (hex) {
+      if (hex === ADMIN_HASH) {
+        Neo.state.adminAuthed = true;
+        idEl.value = ''; pwEl.value = '';
+        focusH1 = true;
+        Neo.rerender();
+      } else {
+        loginError('ID またはパスワードが違います。');
+        pwEl.value = '';
+        pwEl.focus();
+      }
+    }, function () {
+      loginError('この環境ではログインできません。https または localhost で開いてください。');
+    });
   });
 })();

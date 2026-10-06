@@ -4,7 +4,7 @@
   var Neo = (window.Neo = window.Neo || {});
 
   /* ---------- 状態（メモリのみ。リロードで初期化） ---------- */
-  Neo.state = { permissionOverrides: {} };
+  Neo.state = { permissionOverrides: {}, adminAuthed: false }; // adminAuthed: デモ用ログイン済みか（メモリのみ）
   Neo.data = null;
   Neo.screens = Neo.screens || {};         // 画面レジストリ {名前: renderFn(params)}
   Neo.afterRender = Neo.afterRender || {}; // 描画後フック {画面名: fn(params)}
