@@ -1,0 +1,823 @@
+{
+  "_note": "すべて架空のデータです。実在の店舗・商品名・ブランドとは一切関係ありません。 位置は「ビル（buildings）と階（floor）」で持つ。地図上の座標はビルの中心から決まる。街の形（通り・高架線2本・駅・駅前広場・川）は town に持つ。",
+  "town": {
+    "name": "ネオ電気街",
+    "mapSize": {
+      "width": 600,
+      "height": 1000
+    },
+    "streets": [
+      {
+        "id": "main",
+        "name": "中央通り",
+        "x1": 300,
+        "y1": 60,
+        "x2": 300,
+        "y2": 1000,
+        "width": 52
+      },
+      {
+        "id": "denno",
+        "name": "電脳横丁",
+        "x1": 60,
+        "y1": 380,
+        "x2": 600,
+        "y2": 380,
+        "width": 22
+      },
+      {
+        "id": "hobby",
+        "name": "ホビー裏通り",
+        "x1": 130,
+        "y1": 120,
+        "x2": 130,
+        "y2": 900,
+        "width": 16
+      },
+      {
+        "id": "roji1",
+        "name": "ジャンク小路",
+        "x1": 130,
+        "y1": 470,
+        "x2": 300,
+        "y2": 470,
+        "width": 8
+      },
+      {
+        "id": "roji2",
+        "name": "ジャンク小路",
+        "x1": 130,
+        "y1": 540,
+        "x2": 300,
+        "y2": 540,
+        "width": 8
+      },
+      {
+        "id": "rojiv",
+        "name": "ジャンク小路",
+        "x1": 205,
+        "y1": 380,
+        "x2": 205,
+        "y2": 680,
+        "width": 8
+      }
+    ],
+    "rails": [
+      {
+        "id": "ns",
+        "name": "高架線",
+        "x1": 470,
+        "y1": 0,
+        "x2": 470,
+        "y2": 1000,
+        "width": 34
+      },
+      {
+        "id": "ew",
+        "name": "高架線",
+        "x1": 0,
+        "y1": 700,
+        "x2": 600,
+        "y2": 700,
+        "width": 34
+      }
+    ],
+    "station": {
+      "name": "ネオ電気街駅",
+      "x": 470,
+      "y": 700,
+      "w": 90,
+      "h": 140
+    },
+    "here": {
+      "name": "駅前広場",
+      "x": 380,
+      "y": 640
+    },
+    "plaza": {
+      "name": "駅前広場",
+      "x": 375,
+      "y": 635,
+      "w": 90,
+      "h": 90
+    },
+    "river": {
+      "name": "電気川",
+      "y1": 930,
+      "y2": 1000
+    },
+    "pedestrianMall": {
+      "street": "main",
+      "label": "歩行者天国（日曜）"
+    }
+  },
+  "genres": {
+    "tcg": "カードゲーム専門店",
+    "maid_cafe": "メイドカフェ",
+    "plamo": "プラモ・模型店",
+    "buyback": "買取店",
+    "pc_parts": "PCパーツ店",
+    "cafe": "カフェ",
+    "retro_arcade": "レトロゲームセンター",
+    "crane_arcade": "UFOキャッチャー専門ゲーセン",
+    "anime_goods": "アニメグッズ専門店",
+    "quick_food": "軽食・チェーン"
+  },
+  "categories": {
+    "food_exp": {
+      "label": "飲食体験",
+      "genres": [
+        "maid_cafe",
+        "cafe",
+        "retro_arcade",
+        "crane_arcade",
+        "quick_food"
+      ]
+    },
+    "hobby": {
+      "label": "ホビーサブカル",
+      "genres": [
+        "tcg",
+        "plamo",
+        "anime_goods",
+        "buyback"
+      ]
+    },
+    "pc": {
+      "label": "家電PC",
+      "genres": [
+        "pc_parts"
+      ]
+    }
+  },
+  "permissionStatuses": {
+    "approved": "掲載許可済み（表示する）",
+    "pending": "確認中（表示しない）",
+    "declined": "掲載を断られた（表示しない・再依頼しない）",
+    "removal_requested": "削除を申請された（表示しない・即時非表示）"
+  },
+  "buildings": [
+    {
+      "id": "b01",
+      "name": "カード会館",
+      "x": 360,
+      "y": 250,
+      "w": 60,
+      "h": 80,
+      "floors": 6,
+      "street": "main"
+    },
+    {
+      "id": "b02",
+      "name": "ほしぞらビル",
+      "x": 245,
+      "y": 290,
+      "w": 50,
+      "h": 90,
+      "floors": 7,
+      "street": "main"
+    },
+    {
+      "id": "b03",
+      "name": "電脳タワー",
+      "x": 365,
+      "y": 470,
+      "w": 70,
+      "h": 100,
+      "floors": 8,
+      "street": "main"
+    },
+    {
+      "id": "b04",
+      "name": "ホビープラザ",
+      "x": 80,
+      "y": 250,
+      "w": 60,
+      "h": 80,
+      "floors": 5,
+      "street": "hobby"
+    },
+    {
+      "id": "b05",
+      "name": "模型ビル",
+      "x": 180,
+      "y": 250,
+      "w": 50,
+      "h": 80,
+      "floors": 6,
+      "street": "hobby"
+    },
+    {
+      "id": "b06",
+      "name": "ねこ小路ビル",
+      "x": 240,
+      "y": 505,
+      "w": 44,
+      "h": 50,
+      "floors": 4,
+      "street": "roji2"
+    },
+    {
+      "id": "b07",
+      "name": "まんがビル",
+      "x": 80,
+      "y": 520,
+      "w": 56,
+      "h": 80,
+      "floors": 5,
+      "street": "hobby"
+    },
+    {
+      "id": "b08",
+      "name": "昭和ビル",
+      "x": 365,
+      "y": 800,
+      "w": 60,
+      "h": 70,
+      "floors": 3,
+      "street": "main"
+    },
+    {
+      "id": "b09",
+      "name": "喫茶ビル",
+      "x": 240,
+      "y": 790,
+      "w": 50,
+      "h": 70,
+      "floors": 5,
+      "street": "main"
+    },
+    {
+      "id": "b10",
+      "name": "わっかビル",
+      "x": 170,
+      "y": 610,
+      "w": 44,
+      "h": 50,
+      "floors": 3,
+      "street": "rojiv"
+    },
+    {
+      "id": "b11",
+      "name": "バーガー館",
+      "x": 80,
+      "y": 760,
+      "w": 56,
+      "h": 70,
+      "floors": 4,
+      "street": "hobby"
+    },
+    {
+      "id": "b12",
+      "name": "そば横丁ビル",
+      "x": 365,
+      "y": 890,
+      "w": 56,
+      "h": 60,
+      "floors": 3,
+      "street": "main"
+    },
+    {
+      "id": "b13",
+      "name": "牛めしビル",
+      "x": 240,
+      "y": 880,
+      "w": 50,
+      "h": 60,
+      "floors": 4,
+      "street": "main"
+    }
+  ],
+  "shops": [
+    {
+      "id": "tcg-01",
+      "name": "カードの森",
+      "genre": "tcg",
+      "building": "b01",
+      "floor": 1,
+      "description": "対戦用カードが豊富な老舗風ショップ。店内に対戦スペースあり。",
+      "hours": "11:00-20:00",
+      "closed": "水曜",
+      "lastUpdatedDaysAgo": 1,
+      "tags": [
+        "トレカ",
+        "対戦スペース"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 40,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当A"
+      }
+    },
+    {
+      "id": "tcg-02",
+      "name": "デッキ堂",
+      "genre": "tcg",
+      "building": "b01",
+      "floor": 3,
+      "description": "シングルカードの品揃えが自慢。ストレージ検索に強い。",
+      "hours": "12:00-21:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 2,
+      "tags": [
+        "トレカ",
+        "シングル販売"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 35,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "tcg-03",
+      "name": "ミラクルカードベース",
+      "genre": "tcg",
+      "building": "b04",
+      "floor": 1,
+      "description": "初心者向けスターターセットと体験会が人気。",
+      "hours": "10:30-19:30",
+      "closed": "木曜",
+      "lastUpdatedDaysAgo": 3,
+      "tags": [
+        "トレカ",
+        "初心者歓迎",
+        "体験会"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 20,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当B"
+      }
+    },
+    {
+      "id": "maid-01",
+      "name": "メイドカフェ ほしぞら亭",
+      "genre": "maid_cafe",
+      "building": "b02",
+      "floor": 4,
+      "description": "星空をテーマにした内装。ショータイムは1日3回。",
+      "hours": "11:00-22:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 1,
+      "tags": [
+        "メイドカフェ",
+        "ショー",
+        "写真撮影オプション"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 50,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "maid-02",
+      "name": "ねこのしっぽ喫茶",
+      "genre": "maid_cafe",
+      "building": "b06",
+      "floor": 2,
+      "description": "猫モチーフの癒し系メイドカフェ。ふわふわパンケーキが名物。",
+      "hours": "11:30-20:30",
+      "closed": "火曜",
+      "lastUpdatedDaysAgo": 4,
+      "tags": [
+        "メイドカフェ",
+        "癒し系",
+        "スイーツ"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 28,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当A"
+      }
+    },
+    {
+      "id": "plamo-01",
+      "name": "プラモ工房ブンブン",
+      "genre": "plamo",
+      "building": "b04",
+      "floor": 2,
+      "description": "ロボット系プラモデルの品揃えが豊富。組み立て相談OK。",
+      "hours": "11:00-20:00",
+      "closed": "水曜",
+      "lastUpdatedDaysAgo": 2,
+      "tags": [
+        "プラモ",
+        "ロボット系",
+        "組み立て相談"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 33,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当B"
+      }
+    },
+    {
+      "id": "plamo-02",
+      "name": "ロボ模型センター",
+      "genre": "plamo",
+      "building": "b05",
+      "floor": 1,
+      "description": "新作・再販情報が早い。展示ジオラマが見どころ。",
+      "hours": "10:00-19:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 1,
+      "tags": [
+        "プラモ",
+        "ジオラマ展示",
+        "新作"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 60,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "plamo-03",
+      "name": "ペイントラボ",
+      "genre": "plamo",
+      "building": "b04",
+      "floor": 3,
+      "description": "塗料・工具・エアブラシ専門。塗装ワークショップ開催。",
+      "hours": "12:00-19:00",
+      "closed": "月曜",
+      "lastUpdatedDaysAgo": 6,
+      "tags": [
+        "プラモ",
+        "塗料・工具",
+        "ワークショップ"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 15,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当A"
+      }
+    },
+    {
+      "id": "buy-01",
+      "name": "買取屋 まんが蔵",
+      "genre": "buyback",
+      "building": "b07",
+      "floor": 2,
+      "description": "コミック・ホビー全般の買取。まとめ売り歓迎。",
+      "hours": "11:00-20:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 5,
+      "tags": [
+        "買取",
+        "コミック",
+        "ホビー"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 22,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "buy-02",
+      "name": "ホビーリサイクル",
+      "genre": "buyback",
+      "building": "b07",
+      "floor": 3,
+      "description": "プラモ・コミックの買取専門。",
+      "hours": "11:00-19:00",
+      "closed": "日曜",
+      "lastUpdatedDaysAgo": 30,
+      "tags": [
+        "買取",
+        "プラモ",
+        "コミック"
+      ],
+      "permission": {
+        "status": "declined",
+        "grantedDaysAgo": null,
+        "method": "運営担当が訪問し依頼 → 断られた",
+        "contact": "運営担当B",
+        "note": "再依頼はしない"
+      }
+    },
+    {
+      "id": "pc-01",
+      "name": "パーツ屋 ビットハウス",
+      "genre": "pc_parts",
+      "building": "b03",
+      "floor": 1,
+      "description": "CPU・メモリ・ストレージなど自作PCの基本パーツが揃う。",
+      "hours": "11:00-20:00",
+      "closed": "水曜",
+      "lastUpdatedDaysAgo": 1,
+      "tags": [
+        "PCパーツ",
+        "自作PC",
+        "相談OK"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 45,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "pc-02",
+      "name": "ジャンクの泉",
+      "genre": "pc_parts",
+      "building": "b03",
+      "floor": -1,
+      "description": "掘り出し物のジャンクパーツ専門。ケーブル類の山が名物。",
+      "hours": "12:00-19:00",
+      "closed": "火曜",
+      "lastUpdatedDaysAgo": 7,
+      "tags": [
+        "ジャンク",
+        "PCパーツ",
+        "掘り出し物"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 18,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当A"
+      }
+    },
+    {
+      "id": "pc-03",
+      "name": "自作PCスタジオ コア",
+      "genre": "pc_parts",
+      "building": "b03",
+      "floor": 5,
+      "description": "BTO・自作PCの組み立て代行。",
+      "hours": "11:00-20:00",
+      "closed": "木曜",
+      "lastUpdatedDaysAgo": 10,
+      "tags": [
+        "PCパーツ",
+        "組み立て代行"
+      ],
+      "permission": {
+        "status": "pending",
+        "grantedDaysAgo": null,
+        "method": "運営担当が許可を確認中",
+        "contact": "運営担当B"
+      }
+    },
+    {
+      "id": "cafe-01",
+      "name": "純喫茶 ヒトヤスミ",
+      "genre": "cafe",
+      "building": "b09",
+      "floor": 1,
+      "description": "歩き疲れた時に。ナポリタンとクリームソーダが人気。",
+      "hours": "9:00-19:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 3,
+      "tags": [
+        "カフェ",
+        "軽食",
+        "休憩"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 55,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "cafe-02",
+      "name": "コーヒースタンド ノード",
+      "genre": "cafe",
+      "building": "b06",
+      "floor": 1,
+      "description": "テイクアウト専門のスペシャルティコーヒー。",
+      "hours": "8:00-17:00",
+      "closed": "日曜",
+      "lastUpdatedDaysAgo": 12,
+      "tags": [
+        "カフェ",
+        "テイクアウト"
+      ],
+      "permission": {
+        "status": "removal_requested",
+        "grantedDaysAgo": 70,
+        "method": "店舗から削除申請あり",
+        "contact": "店舗申請",
+        "note": "受付後ただちに非表示"
+      }
+    },
+    {
+      "id": "retro-01",
+      "name": "昭和ゲーム館",
+      "genre": "retro_arcade",
+      "building": "b08",
+      "floor": 1,
+      "description": "古い筐体のアーケードゲームが並ぶ。100円玉両替機あり。",
+      "hours": "11:00-21:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 2,
+      "tags": [
+        "ゲーセン",
+        "レトロ",
+        "アーケード"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 48,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当B"
+      }
+    },
+    {
+      "id": "crane-01",
+      "name": "キャッチ・マニア",
+      "genre": "crane_arcade",
+      "building": "b02",
+      "floor": 1,
+      "description": "UFOキャッチャーだけの専門店。景品の入れ替えは毎日。",
+      "hours": "10:00-22:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 1,
+      "tags": [
+        "ゲーセン",
+        "UFOキャッチャー",
+        "景品"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 30,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "anime-01",
+      "name": "キラキラ堂",
+      "genre": "anime_goods",
+      "building": "b01",
+      "floor": 2,
+      "description": "アニメグッズ総合店。缶バッジ・アクスタが充実。",
+      "hours": "11:00-20:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 1,
+      "tags": [
+        "アニメグッズ",
+        "缶バッジ",
+        "アクスタ"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 42,
+        "method": "店舗にて口頭＋メール確認",
+        "contact": "運営担当A"
+      }
+    },
+    {
+      "id": "anime-02",
+      "name": "推し活ステーション",
+      "genre": "anime_goods",
+      "building": "b09",
+      "floor": 3,
+      "description": "推し活グッズ・ぬい服・撮影スペース。",
+      "hours": "11:00-20:00",
+      "closed": "水曜",
+      "lastUpdatedDaysAgo": 4,
+      "tags": [
+        "アニメグッズ",
+        "推し活",
+        "撮影スペース"
+      ],
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 25,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "anime-03",
+      "name": "ミニチュアハウス フィギュア倉庫",
+      "genre": "anime_goods",
+      "building": "b05",
+      "floor": 4,
+      "description": "フィギュア・スケールモデル専門。",
+      "hours": "12:00-19:00",
+      "closed": "月曜",
+      "lastUpdatedDaysAgo": 9,
+      "tags": [
+        "アニメグッズ",
+        "フィギュア"
+      ],
+      "permission": {
+        "status": "pending",
+        "grantedDaysAgo": null,
+        "method": "運営担当が許可を確認中",
+        "contact": "運営担当A"
+      }
+    },
+    {
+      "id": "snack-01",
+      "name": "ドーナツのわっか堂",
+      "genre": "quick_food",
+      "building": "b10",
+      "floor": 1,
+      "description": "ふわふわ生地のドーナツとコーヒー。チェーン店（架空）。",
+      "hours": "7:00-22:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 2,
+      "tags": [
+        "ドーナツ",
+        "テイクアウト",
+        "チェーン"
+      ],
+      "foodType": "donut",
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 40,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "snack-02",
+      "name": "バーガースタンド NEO",
+      "genre": "quick_food",
+      "building": "b11",
+      "floor": 1,
+      "description": "手早く食べられるバーガーとポテト。チェーン店（架空）。",
+      "hours": "7:00-23:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 1,
+      "tags": [
+        "ハンバーガー",
+        "セット",
+        "チェーン"
+      ],
+      "foodType": "burger",
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 35,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "snack-03",
+      "name": "立ち食いそば ネオ亭",
+      "genre": "quick_food",
+      "building": "b12",
+      "floor": 1,
+      "description": "かけそば一杯でさっと腹ごしらえ。チェーン店（架空）。",
+      "hours": "6:30-21:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 4,
+      "tags": [
+        "そば",
+        "うどん",
+        "立ち食い",
+        "チェーン"
+      ],
+      "foodType": "soba",
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 30,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    },
+    {
+      "id": "snack-04",
+      "name": "牛めし ネオ屋",
+      "genre": "quick_food",
+      "building": "b13",
+      "floor": 1,
+      "description": "24時間営業の牛めし・定食。チェーン店（架空）。",
+      "hours": "0:00-24:00",
+      "closed": "なし",
+      "lastUpdatedDaysAgo": 3,
+      "tags": [
+        "牛めし",
+        "定食",
+        "チェーン"
+      ],
+      "foodType": "gyudon",
+      "permission": {
+        "status": "approved",
+        "grantedDaysAgo": 28,
+        "method": "申請フォーム",
+        "contact": "店舗申請"
+      }
+    }
+  ]
+}

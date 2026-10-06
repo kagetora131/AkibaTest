@@ -1,0 +1,83 @@
+{
+  "_note": "事前生成済みのツアー案（運営がAIチャットで作成して保存した想定）。店舗は shops.json の id で参照。掲載不可の店が含まれていても、画面では自動的に除外される。",
+  "themes": [
+    { "id": "tcg", "label": "カードゲーム", "genres": ["tcg"] },
+    { "id": "maid", "label": "メイドカフェ", "genres": ["maid_cafe"] },
+    { "id": "plamo", "label": "プラモ・模型", "genres": ["plamo", "buyback"] },
+    { "id": "pc", "label": "PCパーツ", "genres": ["pc_parts"] },
+    { "id": "arcade", "label": "ゲーセン", "genres": ["retro_arcade", "crane_arcade"] },
+    { "id": "anime", "label": "アニメグッズ", "genres": ["anime_goods"] },
+    { "id": "rest", "label": "休憩（カフェ）", "genres": ["cafe"] }
+  ],
+  "tours": [
+    {
+      "id": "tour-tcg", "kind": "official", "title": "トレカショップ巡りコース", "themes": ["tcg", "rest"],
+      "durationMinutes": 120, "price": 0, "priceNote": "デモのため金額は未設定",
+      "summary": "対戦用からシングルまで、カードゲームの店を3軒まわって休憩を挟む王道コース。",
+      "stops": [
+        { "shopId": "tcg-01", "stayMinutes": 30, "comment": "対戦スペースで腕試し。" },
+        { "shopId": "tcg-02", "stayMinutes": 30, "comment": "シングルカードを探す。" },
+        { "shopId": "cafe-01", "stayMinutes": 20, "comment": "ここで休憩。" },
+        { "shopId": "tcg-03", "stayMinutes": 30, "comment": "体験会の様子を見学。" }
+      ]
+    },
+    {
+      "id": "tour-card-pro", "kind": "official", "title": "対戦カード 実戦デッキ巡りコース", "themes": ["tcg"],
+      "durationMinutes": 90, "price": 0, "priceNote": "デモのため金額は未設定",
+      "summary": "デッキづくりから実戦、初心者向けの品まで。対戦カードの店を3軒じっくり巡るコース。",
+      "stops": [
+        { "shopId": "tcg-02", "stayMinutes": 30, "comment": "デッキ構築用のカードを探す。" },
+        { "shopId": "tcg-01", "stayMinutes": 30, "comment": "対戦スペースで実戦。" },
+        { "shopId": "tcg-03", "stayMinutes": 30, "comment": "初心者向け商品をチェック。" }
+      ]
+    },
+    {
+      "id": "tour-maid-mix", "kind": "official", "title": "メイドカフェ＋トレカの寄り道コース", "themes": ["tcg", "maid"],
+      "durationMinutes": 150, "price": 0, "priceNote": "デモのため金額は未設定",
+      "summary": "カード店をめぐりつつ、途中でメイドカフェに立ち寄る。テーマ差し替えの見本。",
+      "stops": [
+        { "shopId": "tcg-01", "stayMinutes": 30, "comment": "まずはカードの森から。" },
+        { "shopId": "maid-02", "stayMinutes": 45, "comment": "ねこのしっぽ喫茶でスイーツ。" },
+        { "shopId": "tcg-02", "stayMinutes": 30, "comment": "シングルカードを探す。" },
+        { "shopId": "maid-01", "stayMinutes": 45, "comment": "ほしぞら亭のショータイムで締め。" }
+      ]
+    },
+    {
+      "id": "tour-plamo-pc", "kind": "official", "title": "プラモ・買取・PCパーツのものづくりコース", "themes": ["plamo", "pc"],
+      "durationMinutes": 180, "price": 0, "priceNote": "デモのため金額は未設定",
+      "summary": "作る人向け。プラモ、工具、PCパーツ、ジャンクまで、手を動かしたくなる店を巡る。",
+      "stops": [
+        { "shopId": "plamo-01", "stayMinutes": 30, "comment": "ロボ系プラモを見る。" },
+        { "shopId": "plamo-03", "stayMinutes": 30, "comment": "塗料と工具をチェック。" },
+        { "shopId": "buy-01", "stayMinutes": 20, "comment": "不要品の査定も可能。" },
+        { "shopId": "pc-01", "stayMinutes": 30, "comment": "自作PCの基本パーツ。" },
+        { "shopId": "pc-02", "stayMinutes": 30, "comment": "ジャンクの宝探し。" },
+        { "shopId": "cafe-01", "stayMinutes": 20, "comment": "最後に休憩。" }
+      ]
+    },
+    {
+      "id": "tour-retro-arcade", "kind": "official", "title": "ゲーセン＆グッズ満喫コース", "themes": ["arcade", "anime", "rest"],
+      "durationMinutes": 150, "price": 0, "priceNote": "デモのため金額は未設定",
+      "summary": "レトロ筐体とUFOキャッチャー、アニメグッズ店を巡る遊び倒しコース。",
+      "stops": [
+        { "shopId": "anime-01", "stayMinutes": 30, "comment": "缶バッジガチャから。" },
+        { "shopId": "crane-01", "stayMinutes": 40, "comment": "景品を狙う。" },
+        { "shopId": "cafe-01", "stayMinutes": 20, "comment": "休憩。" },
+        { "shopId": "retro-01", "stayMinutes": 40, "comment": "レトロ筐体で締め。" },
+        { "shopId": "anime-02", "stayMinutes": 20, "comment": "推し活グッズをチェック。" }
+      ]
+    }
+  ],
+  "aiArrangeRules": {
+    "_note": "AIアレンジ機能の仕様（デモではAI APIを使わず、このルールをコードで再現する）",
+    "inputs": ["テーマ（複数選択）", "所要時間", "休憩を入れるか"],
+    "algorithm": [
+      "掲載許可済み（approved）の店だけを候補にする",
+      "選ばれたテーマのジャンルから店を選ぶ",
+      "店の営業時間・定休日を考慮する",
+      "近い順（地図上の距離）に並べる",
+      "所要時間に収まるまで店を減らす",
+      "休憩オンなら、長い区間の途中にカフェを1軒入れる"
+    ]
+  }
+}

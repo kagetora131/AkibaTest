@@ -1,0 +1,24 @@
+{
+  "_note": "日付は『今日からの日数』で持つ。デモがいつ開かれても、開催中・終了・開催前が必ず混在して表示される。すべて架空のキャンペーン。",
+  "campaigns": [
+    { "id": "c01", "shopId": "tcg-01", "title": "初心者歓迎！スターターデッキ10%OFF", "description": "対戦デビュー応援。デッキ購入で試し対戦1回無料。", "startOffsetDays": -3, "endOffsetDays": 10 },
+    { "id": "c02", "shopId": "tcg-02", "title": "シングルカード まとめ買い割引", "description": "10枚以上のお買い上げで合計から5%OFF。", "startOffsetDays": -1, "endOffsetDays": 5 },
+    { "id": "c03", "shopId": "tcg-03", "title": "週末体験会（参加無料）", "description": "毎週土日13時から。道具の貸出あり。", "startOffsetDays": -14, "endOffsetDays": 30 },
+    { "id": "c04", "shopId": "maid-01", "title": "ほしぞらフェア：限定ドリンク", "description": "期間限定の星空ソーダを提供中。", "startOffsetDays": 0, "endOffsetDays": 14 },
+    { "id": "c05", "shopId": "maid-02", "title": "ねこの日スイーツ（終了）", "description": "猫の日にちなんだ特別スイーツ。", "startOffsetDays": -20, "endOffsetDays": -6 },
+    { "id": "c06", "shopId": "plamo-01", "title": "組み立て相談会", "description": "初心者向け。ニッパー貸出あり。", "startOffsetDays": 3, "endOffsetDays": 4 },
+    { "id": "c07", "shopId": "plamo-02", "title": "ジオラマ展示コンテスト投票", "description": "来店者投票で今月のベスト作品を決定。", "startOffsetDays": -5, "endOffsetDays": 9 },
+    { "id": "c08", "shopId": "plamo-03", "title": "塗装ワークショップ（要予約）", "description": "エアブラシ入門。定員6名。", "startOffsetDays": 7, "endOffsetDays": 7 },
+    { "id": "c09", "shopId": "buy-01", "title": "まとめ売り買取額アップ", "description": "20点以上の持ち込みで買取額10%アップ。", "startOffsetDays": -2, "endOffsetDays": 12 },
+    { "id": "c10", "shopId": "buy-02", "title": "（掲載不可の店のキャンペーン：表示されてはいけない）", "description": "掲載を断られた店のため、画面に出てはいけないデータ。非表示のテスト用。", "startOffsetDays": -1, "endOffsetDays": 20 },
+    { "id": "c11", "shopId": "pc-01", "title": "メモリ・SSD 週末セール", "description": "対象商品を店頭表示価格から値引き。", "startOffsetDays": 1, "endOffsetDays": 3 },
+    { "id": "c12", "shopId": "pc-02", "title": "ジャンクお宝くじ", "description": "1回200円。ハズレなしのジャンクパーツ福袋。", "startOffsetDays": -10, "endOffsetDays": 20 },
+    { "id": "c13", "shopId": "cafe-01", "title": "歩き疲れた人に：セットドリンク無料", "description": "当日の他店レシート提示でドリンクサービス。", "startOffsetDays": -7, "endOffsetDays": 21 },
+    { "id": "c14", "shopId": "cafe-02", "title": "（削除申請済みの店：表示されてはいけない）", "description": "削除申請を受けた店のため、画面に出てはいけないデータ。", "startOffsetDays": -2, "endOffsetDays": 6 },
+    { "id": "c15", "shopId": "retro-01", "title": "ハイスコア大会", "description": "週末開催。上位3名に景品。", "startOffsetDays": 2, "endOffsetDays": 3 },
+    { "id": "c16", "shopId": "crane-01", "title": "景品総入れ替えDAY", "description": "人気の新景品が大量入荷。", "startOffsetDays": 0, "endOffsetDays": 0 },
+    { "id": "c17", "shopId": "anime-01", "title": "缶バッジ ガチャ 増量中", "description": "対象ガチャで1回おまけ。", "startOffsetDays": -4, "endOffsetDays": 8 },
+    { "id": "c18", "shopId": "anime-02", "title": "撮影スペース無料開放", "description": "購入者は30分無料。", "startOffsetDays": -1, "endOffsetDays": 15 },
+    { "id": "c19", "shopId": "anime-03", "title": "（確認中の店：表示されてはいけない）", "description": "掲載許可が未確認の店のため、画面に出てはいけないデータ。", "startOffsetDays": 0, "endOffsetDays": 10 }
+  ]
+}

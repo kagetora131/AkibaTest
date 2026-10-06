@@ -1,0 +1,5 @@
+# 公開しないもの（デモのサイト以外）
+CLAUDE.md
+*.pptx
+*.xlsx
+.claude/
