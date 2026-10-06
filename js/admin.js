@@ -4,6 +4,11 @@
   var Neo = (window.Neo = window.Neo || {});
   Neo.screens = Neo.screens || {};
   Neo.afterRender = Neo.afterRender || {};
+  // admin.js は app.js より先に読み込まれるので、状態の入れ物をここでも用意する（app.js は既存の入れ物を引き継ぐ）
+  Neo.state = Neo.state || { permissionOverrides: {}, adminAuthed: false };
+
+  function authed() { return !!(Neo.state && Neo.state.adminAuthed); }
+  function setAuthed(v) { if (Neo.state) Neo.state.adminAuthed = !!v; }
 
   var SHORT = { approved: '掲載中', pending: '確認中', declined: '掲載不可', removal_requested: '削除申請' };
   var COLOR = { approved: '#2b8a3e', pending: '#f59f00', declined: '#868e96', removal_requested: '#e64980' };
@@ -71,22 +76,6 @@
   // ハッシュは「ID:パスワード」（UTF-8）の SHA-256（小文字16進）
   var ADMIN_HASH = 'e2339bb6a249ed0533b57b598b20696896cf344d929cfd682dc23e20301511bf';
 
-  var focusH1 = false; // ログイン直後に管理画面の見出しへフォーカスを移す
-
-  function loginScreen() {
-    return '<section class="card login-card">' +
-      '<h1>運営ログイン（デモ）</h1>' +
-      '<p class="notice card">この画面は運営担当者用です（デモ）。</p>' +
-      '<form id="admin-login" novalidate>' +
-        '<div class="field"><label for="login-id">ID</label>' +
-          '<input class="input" type="text" id="login-id" name="user" autocomplete="username"></div>' +
-        '<div class="field"><label for="login-pw">パスワード</label>' +
-          '<input class="input" type="password" id="login-pw" name="pw" autocomplete="current-password"></div>' +
-        '<p class="field-error" id="login-error" role="alert"></p>' +
-        '<button type="submit" class="btn btn-primary">ログイン</button>' +
-      '</form></section>';
-  }
-
   function adminBar() {
     return '<div class="admin-bar">' +
       '<span class="admin-pill">運営用（デモ）</span>' +
@@ -96,7 +85,7 @@
   }
 
   Neo.screens.admin = function () {
-    if (!Neo.state.adminAuthed) return loginScreen();
+    if (!authed()) return ''; // 通常は app.js が先にトップへ戻してログインを開く
     var none = overrideCount() === 0;
     return adminBar() + '<h1>管理画面（デモ）</h1>' +
       '<p class="notice card">この画面での切り替えは保存されません。ページを再読み込みすると元に戻ります。本番では運営担当者だけが見られる画面です。</p>' +
@@ -109,11 +98,6 @@
   };
 
   Neo.afterRender.admin = function () {
-    if (focusH1) {
-      focusH1 = false;
-      var h = document.querySelector('#app h1');
-      if (h) { h.setAttribute('tabindex', '-1'); try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
-    }
     if (!pendingFocus) return;
     var sels = document.querySelectorAll('.status-select');
     for (var i = 0; i < sels.length; i++) {
@@ -147,16 +131,38 @@
       Neo.state.permissionOverrides = {};
       Neo.rerender();
     } else if (t.closest('[data-action="admin-logout"]')) {
-      Neo.state.adminAuthed = false;
-      Neo.rerender();
+      setAuthed(false);
+      Neo.syncAdminEntry();
+      location.hash = '#/'; // お客様画面へ戻る
     }
   });
 
-  // ログイン欄の下にエラーを出す（role="alert" の段落の中身を差し替える）
+  /* ---------- ログイン用ダイアログ（右下の小さなボタンから開く） ---------- */
+
+  var entryBtn = null, dlg = null;
+
+  // ダイアログ内のエラー表示（role="alert" の段落の中身を差し替える）
   function loginError(msg) {
     var el = document.getElementById('login-error');
     if (el) el.textContent = msg;
   }
+
+  // 右下ボタンの表示を状態に合わせる（管理画面では隠す。ログイン済みなら「管理画面へ」）
+  Neo.syncAdminEntry = function () {
+    if (!entryBtn) return;
+    entryBtn.hidden = onAdmin();
+    entryBtn.textContent = authed() ?'管理画面へ' : '管理（デモ版専用）';
+  };
+
+  // ダイアログを開く（入力とエラーは空にしてから）
+  Neo.openAdminLogin = function () {
+    if (!dlg || dlg.open) return;
+    loginError('');
+    document.getElementById('login-id').value = '';
+    document.getElementById('login-pw').value = '';
+    dlg.showModal();
+    document.getElementById('login-id').focus();
+  };
 
   // 文字列 → SHA-256（小文字16進）
   function sha256Hex(text) {
@@ -168,11 +174,11 @@
   }
 
   // ログイン送信。通信・保存・ログ出力はしない（入力値はこの関数の中だけで使う）
-  document.addEventListener('submit', function (e) {
-    var form = e.target;
-    if (!form || !form.getAttribute || form.getAttribute('id') !== 'admin-login') return;
-    e.preventDefault();
-    var idEl = form.elements.user, pwEl = form.elements.pw;
+  function onLoginSubmit(e) {
+    e.preventDefault(); // 何があっても通常の送信（URLへの値の付与）をさせない
+    e.stopPropagation();
+    var idEl = document.getElementById('login-id'), pwEl = document.getElementById('login-pw');
+    if (!idEl || !pwEl) return;
     if (!idEl.value || !pwEl.value) { loginError('ID とパスワードを入力してください。'); return; }
     if (!window.crypto || !crypto.subtle) {
       loginError('この環境ではログインできません。https または localhost で開いてください。');
@@ -180,10 +186,11 @@
     }
     sha256Hex(idEl.value + ':' + pwEl.value).then(function (hex) {
       if (hex === ADMIN_HASH) {
-        Neo.state.adminAuthed = true;
+        setAuthed(true);
         idEl.value = ''; pwEl.value = '';
-        focusH1 = true;
-        Neo.rerender();
+        dlg.close();
+        Neo.syncAdminEntry();
+        location.hash = '#/admin'; // 画面切替で見出しにフォーカスが移る
       } else {
         loginError('ID またはパスワードが違います。');
         pwEl.value = '';
@@ -192,5 +199,41 @@
     }, function () {
       loginError('この環境ではログインできません。https または localhost で開いてください。');
     });
+  }
+
+  // 保険：フォームに直接つけられなかった場合でも、ログインフォームの送信は必ず止める
+  document.addEventListener('submit', function (e) {
+    var f = e.target;
+    if (f && f.getAttribute && f.getAttribute('id') === 'admin-login') e.preventDefault();
   });
+
+  function setupLogin() {
+    // 送信の処理を最初に登録する（あとの処理で例外が出ても送信は守られる）
+    try {
+      var form = document.getElementById('admin-login');
+      if (form) form.addEventListener('submit', onLoginSubmit);
+    } catch (err) { /* 無視 */ }
+    try {
+      entryBtn = document.getElementById('admin-entry');
+      dlg = document.getElementById('login-dialog');
+      if (!entryBtn || !dlg) return;
+      entryBtn.addEventListener('click', function () {
+        if (authed()) location.hash = '#/admin';
+        else Neo.openAdminLogin();
+      });
+      document.getElementById('login-cancel').addEventListener('click', function () { dlg.close(); });
+      // 背景（ダイアログの外側）を押したら閉じる
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+      // Esc・キャンセル・背景のどれで閉じても、入力を空にして右下のボタンへフォーカスを戻す
+      dlg.addEventListener('close', function () {
+        document.getElementById('login-id').value = '';
+        document.getElementById('login-pw').value = '';
+        loginError('');
+        if (!authed()) entryBtn.focus(); // ログイン成功時は管理画面の見出しへ移る
+      });
+      Neo.syncAdminEntry(); // app.js 読み込み後は updateNav からも呼ばれる
+    } catch (err) { /* 無視 */ }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setupLogin);
+  else setupLogin();
 })();

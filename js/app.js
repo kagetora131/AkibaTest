@@ -4,7 +4,10 @@
   var Neo = (window.Neo = window.Neo || {});
 
   /* ---------- 状態（メモリのみ。リロードで初期化） ---------- */
-  Neo.state = { permissionOverrides: {}, adminAuthed: false }; // adminAuthed: デモ用ログイン済みか（メモリのみ）
+  // adminAuthed: デモ用ログイン済みか（メモリのみ）。admin.js が先に作っていたらそれを引き継ぐ
+  Neo.state = Neo.state || {};
+  Neo.state.permissionOverrides = Neo.state.permissionOverrides || {};
+  Neo.state.adminAuthed = !!Neo.state.adminAuthed;
   Neo.data = null;
   Neo.screens = Neo.screens || {};         // 画面レジストリ {名前: renderFn(params)}
   Neo.afterRender = Neo.afterRender || {}; // 描画後フック {画面名: fn(params)}
@@ -86,6 +89,7 @@
   function updateNav(name, params) {
     var current = NAV_PARENT[name] || name;
     if (name === 'shops' && params && params.query && params.query.get('f') === 'live') current = 'campaigns';
+    if (Neo.syncAdminEntry) Neo.syncAdminEntry(); // 右下の管理ボタン（管理画面では隠す）
     var links = document.querySelectorAll('[data-route]');
     for (var i = 0; i < links.length; i++) {
       if (links[i].getAttribute('data-route') === current) links[i].setAttribute('aria-current', 'page');
@@ -131,7 +135,10 @@
     var r = parseRoute();
     if (r.unknown) { location.replace('#/'); return; }
     if (r.redirect) { location.replace(r.redirect); return; }
+    // 未ログインで #/admin を開いたらトップへ戻し、ログインのダイアログを開く
+    if (r.name === 'admin' && !Neo.state.adminAuthed) { Neo.pendingLogin = true; location.replace('#/'); return; }
     render(true);
+    if (Neo.pendingLogin) { Neo.pendingLogin = false; if (Neo.openAdminLogin) Neo.openAdminLogin(); }
   }
 
   // 現在の画面を再描画（管理画面の切替用。スクロール・フォーカスは動かさない）

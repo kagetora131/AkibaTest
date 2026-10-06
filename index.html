@@ -56,5 +56,23 @@
     <div class="wrap">
       <small>© ネオ電気街 デモ（架空）</small>    </div>
   </footer>
+
+  <!-- 運営用ログインの入口（デモ専用・目立たない小さなボタン） -->
+  <button type="button" class="admin-entry" id="admin-entry">管理（デモ版専用）</button>
+  <dialog class="login-dialog card" id="login-dialog" aria-labelledby="login-title">
+    <form id="admin-login" method="dialog" novalidate>
+      <h2 id="login-title">管理画面ログイン</h2>
+      <p class="muted small">デモ版専用です。</p>
+      <div class="field"><label for="login-id">ID</label>
+        <input class="input" type="text" id="login-id" autocomplete="username"></div>
+      <div class="field"><label for="login-pw">パスワード</label>
+        <input class="input" type="password" id="login-pw" autocomplete="current-password"></div>
+      <p class="field-error" id="login-error" role="alert"></p>
+      <div class="btn-row">
+        <button type="submit" class="btn btn-primary">ログイン</button>
+        <button type="button" class="btn btn-ghost" id="login-cancel">キャンセル</button>
+      </div>
+    </form>
+  </dialog>
 </body>
 </html>
